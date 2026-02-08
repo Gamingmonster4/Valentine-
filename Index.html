@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    .page {
+      display: none;
+      text-align: center;
+      background: rgba(255,255,255,0.9);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 90%;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h1 {
+      color: #ff4d6d;
+    }
+
+    button {
+      padding: 12px 22px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background: #999;
+      position: absolute;
+    }
+
+    .gif, .photo {
+      width: 160px;
+      border-radius: 12px;
+      margin: 8px;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      top: -10px;
+      animation: fall 3s linear infinite;
+    }
+
+    .heart {
+      position: fixed;
+      color: #ff4d6d;
+      font-size: 20px;
+      animation: floatUp 4s linear infinite;
+      bottom: -20px;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    @keyframes floatUp {
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- PAGE 1 -->
+  <div class="page active" id="page1">
+    <h1>Aaruuuuuu !! Will you be my Valentine? 😁💖</h1>
+    <p>Don’t break my heart 😌</p>
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 🙄</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="page2">
+    <h1>YAYYYYY 🥹❤️</h1>
+
+    <img class="gif" src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif">
+    <img class="gif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+    <img class="gif" src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif">
+
+    <p>
+      You choosing “Yes” made my whole day.  
+      Loving you feels like home.  
+      Thank you for being patient with me, laughing with me,  
+      and standing by me even on my worst days.  
+      I’m really lucky to have you in my life ❤️
+    </p>
+
+    <button onclick="goToPage3()">Next 💌</button>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page" id="page3">
+    <h1>Our Memories & Our Future 💞</h1>
+
+    <p><b>This is going to be us in the future 🐶❤️</b></p>
+    <img src="dogs.jpg" class="photo">
+
+    <p><b>This reminds us of Alibag… we’ll go back there one day, I promise 🌅❤️</b></p>
+    <img src="alibag.jpg" class="photo">
+
+    <p>
+      No matter where life takes us,  
+      I just want my favourite place to always be wherever you are.
+    </p>
+
+    <button onclick="goToPage4()">One last thing… 👀</button>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="page" id="page4">
+    <h1>I Love You ❤️</h1>
+    <p>
+      Not just today, not just on Valentine’s Day…  
+      but on random boring days, on bad days,  
+      and on days when we don’t even feel like ourselves.  
+      I choose you. Always.  
+      And I hope I get to keep choosing you for a long, long time.
+    </p>
+    <h2>Happy Valentine’s Day, my Aaruuuuuu 😘</h2>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const music = document.getElementById("bgMusic");
+
+    yesBtn.onclick = () => {
+      document.getElementById("page1").classList.remove("active");
+      document.getElementById("page2").classList.add("active");
+      createConfetti();
+      startMusic();
+      startHearts();
+    };
+
+    noBtn.onmouseover = moveNo;
+
+    function moveNo() {
+      noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+      noBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+      yesBtn.style.transform = "scale(1.2)";
+    }
+
+    function goToPage3() {
+      document.getElementById("page2").classList.remove("active");
+      document.getElementById("page3").classList.add("active");
+      createConfetti();
+    }
+
+    function goToPage4() {
+      document.getElementById("page3").classList.remove("active");
+      document.getElementById("page4").classList.add("active");
+      createConfetti();
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor =
+          ["#ff4d6d", "#ffd166", "#06d6a0", "#4cc9f0"][Math.floor(Math.random() * 4)];
+        confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+        document.body.appendChild(confetti);
+      }
+    }
+
+    function startMusic() {
+      music.volume = 0.3;
+      music.play().catch(() => {});
+    }
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = 14 + Math.random() * 20 + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
